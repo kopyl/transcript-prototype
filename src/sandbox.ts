@@ -109,3 +109,76 @@ export const textWithoutLastWord = (text: string) => {
 // const suggestion = makeSuggestion(text, event.target.value);
 // settextaresecondaryvalue(suggestion);
 // };
+
+// function App() {
+//   const textareamain = useRef() as MutableRefObject<HTMLTextAreaElement>;
+//   const textaresecondary = useRef() as MutableRefObject<HTMLTextAreaElement>;
+
+//   const [textareamainvalue, settextareamainvalue] = useState("");
+//   const [textaresecondaryvalue, settextaresecondaryvalue] = useState("");
+
+//   const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+//     settextareamainvalue(event.target.value);
+
+//     const suggestion = makeSuggestion(text, event.target.value);
+//     settextaresecondaryvalue(event.target.value + suggestion);
+//   };
+
+//   const onKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+//     if (event.key !== "Tab") return;
+//     event.preventDefault();
+//     autoComplete();
+//   };
+
+//   const autoComplete = () => {
+//     const newValue = textaresecondaryvalue + " ";
+//     settextareamainvalue(newValue);
+//     const suggestion = makeSuggestion(text, newValue);
+//     settextaresecondaryvalue(newValue + suggestion);
+//   };
+
+//   useEffect(() => {
+//     const suggestion = makeSuggestion(text, "");
+//     settextaresecondaryvalue(suggestion);
+//   }, []);
+
+//     class Suggestion {
+//   private suggestion: string = "";
+
+//   private userEnteringText: UserEnteringText;
+//   private possibleTranscript: PossibleTranscript;
+
+//   constructor(
+//     private _possibleTranscript: string,
+//     private _userEnteringText: string,
+//     private formSetter: Function
+//   ) {
+//     this.userEnteringText = new UserEnteringText(_userEnteringText);
+//     this.possibleTranscript = new PossibleTranscript(
+//       _possibleTranscript,
+//       this.userEnteringText
+//     );
+//     this.make();
+//     console.log(this._userEnteringText);
+//   }
+
+//   make() {
+//     // or if ends with special character
+//     // need to suggest words which were already used less frequently
+//     if (this.userEnteringText.endsWithSpace) {
+//       this.suggestion = this.possibleTranscript.nextPossibleWord;
+//     }
+
+//     if (this.userEnteringText.isEmpty) {
+//       this.suggestion = this.possibleTranscript.firstWord;
+//     }
+
+//     // need to suggest words which were already used less frequently
+//     this.suggestion =
+//       this.possibleTranscript.endingWhichStartWithLastEnteredWord;
+//   }
+
+//   set() {
+//     this.formSetter(this._userEnteringText + this.suggestion);
+//   }
+// }

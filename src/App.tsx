@@ -60,29 +60,46 @@ class PossibleTranscript extends Text {
   }
 }
 
-const makeSuggestion = (
-  _possibleTranscript: string,
-  _userEnteringText: string
-): string => {
-  let userEnteringText = new UserEnteringText(_userEnteringText);
-  let possibleTranscript = new PossibleTranscript(
-    _possibleTranscript,
-    userEnteringText
-  );
+class Suggestion {
+  private suggestion: string = "";
 
-  // or if ends with special character
-  // need to suggest words which were already used less frequently
-  if (userEnteringText.endsWithSpace) {
-    return possibleTranscript.nextPossibleWord;
+  private userEnteringText: UserEnteringText;
+  private possibleTranscript: PossibleTranscript;
+
+  constructor(
+    private _possibleTranscript: string,
+    private _userEnteringText: string,
+    private formSetter: Function
+  ) {
+    this.userEnteringText = new UserEnteringText(_userEnteringText);
+    this.possibleTranscript = new PossibleTranscript(
+      _possibleTranscript,
+      this.userEnteringText
+    );
+    this.make();
+    console.log(this._userEnteringText);
   }
 
-  if (userEnteringText.isEmpty) {
-    return possibleTranscript.firstWord;
+  make() {
+    // or if ends with special character
+    // need to suggest words which were already used less frequently
+    if (this.userEnteringText.endsWithSpace) {
+      return (this.suggestion = this.possibleTranscript.nextPossibleWord);
+    }
+
+    if (this.userEnteringText.isEmpty) {
+      return (this.suggestion = this.possibleTranscript.firstWord);
+    }
+
+    // need to suggest words which were already used less frequently
+    this.suggestion =
+      this.possibleTranscript.endingWhichStartWithLastEnteredWord;
   }
 
-  // need to suggest words which were already used less frequently
-  return possibleTranscript.endingWhichStartWithLastEnteredWord;
-};
+  set() {
+    this.formSetter(this._userEnteringText + this.suggestion);
+  }
+}
 
 function App() {
   const textareamain = useRef() as MutableRefObject<HTMLTextAreaElement>;
@@ -92,10 +109,11 @@ function App() {
   const [textaresecondaryvalue, settextaresecondaryvalue] = useState("");
 
   const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    settextareamainvalue(event.target.value);
+    const newValue = event.target.value;
+    settextareamainvalue(newValue);
 
-    const suggestion = makeSuggestion(text, event.target.value);
-    settextaresecondaryvalue(event.target.value + suggestion);
+    const suggestion = new Suggestion(text, newValue, settextaresecondaryvalue);
+    suggestion.set();
   };
 
   const onKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -107,13 +125,14 @@ function App() {
   const autoComplete = () => {
     const newValue = textaresecondaryvalue + " ";
     settextareamainvalue(newValue);
-    const suggestion = makeSuggestion(text, newValue);
-    settextaresecondaryvalue(newValue + suggestion);
+
+    const suggestion = new Suggestion(text, newValue, settextaresecondaryvalue);
+    suggestion.set();
   };
 
   useEffect(() => {
-    const suggestion = makeSuggestion(text, "");
-    settextaresecondaryvalue(suggestion);
+    const suggestion = new Suggestion(text, "", settextaresecondaryvalue);
+    suggestion.set();
   }, []);
 
   return (
