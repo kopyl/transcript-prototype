@@ -150,10 +150,6 @@ function App() {
   };
 
   useEffect(() => {
-    setSuggestion();
-  }, []);
-
-  useEffect(() => {
     console.log("use effect 2");
 
     setSuggestion(userEnteringText);
