@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import { removeSpacesFromArray, removeSpecialCharacters } from "./utils";
-import { text } from "./text";
+import { possibleTranscript } from "./text";
 
 class Text {
   protected originalContent: string;
@@ -96,7 +96,7 @@ function App() {
   const [userEnteringText, setUserEnteringText] = useState("");
   const [suggestionText, setSuggestionText] = useState("");
 
-  const setSuggestion = setupSuggestions(text, setSuggestionText);
+  const setSuggestion = setupSuggestions(possibleTranscript, setSuggestionText);
 
   const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const enteredText = event.target.value;
