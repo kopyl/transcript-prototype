@@ -5,7 +5,7 @@ import { transcriptPlaceholder } from "./text";
 
 class Text {
   public content: string;
-  public contentWithoutSpecialChars: string;
+  private contentWithoutSpecialChars: string;
 
   constructor(content: string) {
     this.content = content;
