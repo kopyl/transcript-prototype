@@ -112,7 +112,7 @@ const getSuggestion = (
 
 const _setSuggestion = (
   _possibleTranscript: string,
-  suggestionFormTextSetter: Function,
+  suggestionFormTextSetter: React.Dispatch<React.SetStateAction<string>>,
   _userEnteringText: string = ""
 ) => {
   const userEnteringText = new UserEnteringText(_userEnteringText);
