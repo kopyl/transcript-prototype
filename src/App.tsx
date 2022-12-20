@@ -109,10 +109,14 @@ function App() {
   const [textaresecondaryvalue, settextaresecondaryvalue] = useState("");
 
   const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const newValue = event.target.value;
-    settextareamainvalue(newValue);
+    const enteredText = event.target.value;
+    settextareamainvalue(enteredText);
 
-    const suggestion = new Suggestion(text, newValue, settextaresecondaryvalue);
+    const suggestion = new Suggestion(
+      text,
+      enteredText,
+      settextaresecondaryvalue
+    );
     suggestion.set();
   };
 
@@ -123,10 +127,14 @@ function App() {
   };
 
   const autoComplete = () => {
-    const newValue = textaresecondaryvalue + " ";
-    settextareamainvalue(newValue);
+    const textToBeEntered = textaresecondaryvalue + " ";
+    settextareamainvalue(textToBeEntered);
 
-    const suggestion = new Suggestion(text, newValue, settextaresecondaryvalue);
+    const suggestion = new Suggestion(
+      text,
+      textToBeEntered,
+      settextaresecondaryvalue
+    );
     suggestion.set();
   };
 
