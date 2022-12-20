@@ -21,7 +21,8 @@ class Text {
   }
 
   public get lastWord() {
-    return this.array[this.array.length - 1] ?? "";
+    const array = this.array;
+    return array[array.length - 1] ?? "";
   }
 }
 
@@ -55,23 +56,21 @@ class PossibleTranscript extends Text {
   }
 
   get endingWhichStartWithLastEnteredWord() {
-    const enteringText = this.userEnteringText;
+    const enteringTextLastWord = this.userEnteringText.lastWord;
+    const lastEnteredWord = enteringTextLastWord.toLowerCase();
     return (
       this.array
-        .find((word) =>
-          word.toLowerCase().startsWith(enteringText.lastWord.toLowerCase())
-        )
-        ?.slice(enteringText.lastWord.length) || ""
+        .find((word) => word.toLowerCase().startsWith(lastEnteredWord))
+        ?.slice(enteringTextLastWord.length) || ""
     );
   }
 
   get nextPossibleWord() {
-    for (let wordCount in this.array) {
-      if (
-        this.array[wordCount].toLowerCase() ===
-        this.userEnteringText.lastWord.toLowerCase()
-      )
-        return this.array[parseInt(wordCount) + 1] ?? "";
+    const array = this.array;
+    const lastEnteredWord = this.userEnteringText.lastWord.toLowerCase();
+    for (let wordCount in array) {
+      if (array[wordCount].toLowerCase() === lastEnteredWord)
+        return array[parseInt(wordCount) + 1] ?? "";
     }
     return this.firstWord;
   }
@@ -92,8 +91,6 @@ const _setSuggestion = (
   // where suggestion ends with possibleTranscript.nextPossibleWord
 
   if (userEnteringText.endsWithOpenBracket) {
-    // console.log("userEnteringText.endsWithOpenBracket");
-
     if (userEnteringText.hasOnlyOneCharacter) {
       return suggestionFormTextSetter(
         _userEnteringText + possibleTranscript.firstWord
@@ -157,6 +154,8 @@ function App() {
   }, []);
 
   useEffect(() => {
+    console.log("use effect 2");
+
     setSuggestion(userEnteringText);
   }, [userEnteringText, transcript]);
 
