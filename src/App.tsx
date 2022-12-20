@@ -150,8 +150,6 @@ function App() {
   };
 
   useEffect(() => {
-    console.log("use effect 2");
-
     setSuggestion(userEnteringText);
   }, [userEnteringText, transcript]);
 
