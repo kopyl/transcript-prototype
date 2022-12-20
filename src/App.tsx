@@ -43,7 +43,11 @@ class PossibleTranscript extends Text {
   get endingWhichStartWithLastEnteredWord() {
     return (
       this.array
-        .find((word) => word.startsWith(this.userEnteringText.lastWord))
+        .find((word) =>
+          word
+            .toLowerCase()
+            .startsWith(this.userEnteringText.lastWord.toLowerCase())
+        )
         ?.slice(this.userEnteringText.lastWord.length) || ""
     );
   }
