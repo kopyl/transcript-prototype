@@ -95,7 +95,7 @@ function App() {
   const [userEnteringText, setUserEnteringText] = useState("");
   const [suggestionText, setSuggestionText] = useState("");
 
-  const [transcript, setTranscript] = useState(transcriptPlaceholder);
+  const [transcript, _] = useState(transcriptPlaceholder);
 
   const setSuggestion = setupSuggestion.bind("", transcript, setSuggestionText);
 
