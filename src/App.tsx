@@ -71,7 +71,10 @@ class PossibleTranscript extends Text {
       if (array[wordCount].toLowerCase() === lastEnteredWord)
         return array[parseInt(wordCount) + 1] ?? "";
     }
-    return this.firstWord;
+    if (this.userEnteringText.isEmpty) {
+      return this.firstWord;
+    }
+    return "";
   }
 }
 
