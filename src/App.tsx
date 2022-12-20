@@ -103,7 +103,6 @@ const _setSuggestion = (
     );
   }
 
-  // or if ends with special character
   // need to suggest words which were already used less frequently
   if (userEnteringText.endsWithSpace) {
     return suggestionFormTextSetter(
