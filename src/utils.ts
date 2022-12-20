@@ -5,5 +5,5 @@ export const removeSpacesFromArray = (
 };
 
 export const removeSpecialCharacters = (fromText: string): string => {
-  return fromText.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, "");
+  return fromText.replace(/[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/g, "");
 };
