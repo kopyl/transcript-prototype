@@ -71,8 +71,9 @@ const makeSuggestion = (
     userEnteringText
   );
 
+  // or if ends with special character
   if (userEnteringText.endsWithSpace) {
-    return possibleTranscript.nextPossibleWord; // placeholder. or if ends with special character -> suggest a new word
+    return possibleTranscript.nextPossibleWord;
   }
 
   if (userEnteringText.isEmpty) {
