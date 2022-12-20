@@ -50,7 +50,7 @@ class UserEnteringText extends Text {
 }
 
 class PossibleTranscript extends Text {
-  constructor(content: string, private userEnteringText: Text) {
+  constructor(content: string, private userEnteringText: UserEnteringText) {
     super(content);
   }
 
