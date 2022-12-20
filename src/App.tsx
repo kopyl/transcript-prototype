@@ -67,7 +67,10 @@ class PossibleTranscript extends Text {
 
   get nextPossibleWord() {
     for (let wordCount in this.array) {
-      if (this.array[wordCount] === this.userEnteringText.lastWord)
+      if (
+        this.array[wordCount].toLowerCase() ===
+        this.userEnteringText.lastWord.toLowerCase()
+      )
         return this.array[parseInt(wordCount) + 1] ?? "";
     }
     return "";
