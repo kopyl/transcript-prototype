@@ -62,18 +62,16 @@ class PossibleTranscript extends Text {
 
 class Suggestion {
   private suggestion: string = "";
+  public formSetter: Function = () => {};
+  public _possibleTranscript: string = "";
 
   private userEnteringText: UserEnteringText;
   private possibleTranscript: PossibleTranscript;
 
-  constructor(
-    private _possibleTranscript: string,
-    private _userEnteringText: string,
-    private formSetter: Function
-  ) {
+  constructor(private _userEnteringText: string) {
     this.userEnteringText = new UserEnteringText(_userEnteringText);
     this.possibleTranscript = new PossibleTranscript(
-      _possibleTranscript,
+      Suggestion.prototype._possibleTranscript,
       this.userEnteringText
     );
     this.make();
@@ -97,9 +95,13 @@ class Suggestion {
   }
 
   set() {
-    this.formSetter(this._userEnteringText + this.suggestion);
+    Suggestion.prototype.formSetter(this._userEnteringText + this.suggestion);
   }
 }
+
+const SuggestionProxy = () => {
+  return Suggestion;
+};
 
 function App() {
   const textareamain = useRef() as MutableRefObject<HTMLTextAreaElement>;
@@ -108,15 +110,14 @@ function App() {
   const [textareamainvalue, settextareamainvalue] = useState("");
   const [textaresecondaryvalue, settextaresecondaryvalue] = useState("");
 
+  Suggestion.prototype.formSetter = settextaresecondaryvalue;
+  Suggestion.prototype._possibleTranscript = text;
+
   const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const enteredText = event.target.value;
     settextareamainvalue(enteredText);
 
-    const suggestion = new Suggestion(
-      text,
-      enteredText,
-      settextaresecondaryvalue
-    );
+    const suggestion = new Suggestion(enteredText);
     suggestion.set();
   };
 
@@ -130,16 +131,12 @@ function App() {
     const textToBeEntered = textaresecondaryvalue + " ";
     settextareamainvalue(textToBeEntered);
 
-    const suggestion = new Suggestion(
-      text,
-      textToBeEntered,
-      settextaresecondaryvalue
-    );
+    const suggestion = new Suggestion(textToBeEntered);
     suggestion.set();
   };
 
   useEffect(() => {
-    const suggestion = new Suggestion(text, "", settextaresecondaryvalue);
+    const suggestion = new Suggestion("");
     suggestion.set();
   }, []);
 
