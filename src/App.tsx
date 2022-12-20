@@ -78,6 +78,38 @@ class PossibleTranscript extends Text {
   }
 }
 
+const getSuggestion = (
+  userEnteringText: InstanceType<typeof UserEnteringText>,
+  possibleTranscript: InstanceType<typeof PossibleTranscript>
+) => {
+  // need to suggest words which were already used less frequently
+  // where suggestion ends with possibleTranscript.nextPossibleWord
+  if (userEnteringText.endsWithOpenBracket) {
+    if (userEnteringText.hasOnlyOneCharacter) {
+      return userEnteringText.content + possibleTranscript.firstWord;
+    }
+
+    return userEnteringText.content + possibleTranscript.nextPossibleWord;
+  }
+
+  if (userEnteringText.endsWithSpecialCharacterExceptOpenBracket) {
+    return userEnteringText.content + " " + possibleTranscript.nextPossibleWord;
+  }
+
+  if (userEnteringText.endsWithSpace) {
+    return userEnteringText.content + possibleTranscript.nextPossibleWord;
+  }
+
+  if (userEnteringText.isEmpty) {
+    return userEnteringText.content + possibleTranscript.firstWord;
+  }
+
+  return (
+    userEnteringText.content +
+    possibleTranscript.endingWhichStartWithLastEnteredWord
+  );
+};
+
 const _setSuggestion = (
   _possibleTranscript: string,
   suggestionFormTextSetter: Function,
@@ -89,43 +121,8 @@ const _setSuggestion = (
     userEnteringText
   );
 
-  // need to suggest words which were already used less frequently
-  // where suggestion ends with possibleTranscript.nextPossibleWord
-
-  if (userEnteringText.endsWithOpenBracket) {
-    if (userEnteringText.hasOnlyOneCharacter) {
-      return suggestionFormTextSetter(
-        userEnteringText.content + possibleTranscript.firstWord
-      );
-    }
-
-    return suggestionFormTextSetter(
-      userEnteringText.content + possibleTranscript.nextPossibleWord
-    );
-  }
-
-  if (userEnteringText.endsWithSpecialCharacterExceptOpenBracket) {
-    return suggestionFormTextSetter(
-      userEnteringText.content + " " + possibleTranscript.nextPossibleWord
-    );
-  }
-
-  if (userEnteringText.endsWithSpace) {
-    return suggestionFormTextSetter(
-      userEnteringText.content + possibleTranscript.nextPossibleWord
-    );
-  }
-
-  if (userEnteringText.isEmpty) {
-    return suggestionFormTextSetter(
-      userEnteringText.content + possibleTranscript.firstWord
-    );
-  }
-
-  suggestionFormTextSetter(
-    userEnteringText.content +
-      possibleTranscript.endingWhichStartWithLastEnteredWord
-  );
+  const suggestion = getSuggestion(userEnteringText, possibleTranscript);
+  suggestionFormTextSetter(suggestion);
 };
 
 function App() {
