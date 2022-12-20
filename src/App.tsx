@@ -62,7 +62,7 @@ class PossibleTranscript extends Text {
 
 const setupSuggestions = (
   _possibleTranscript: string,
-  formSetter: Function
+  suggestionFormTextSetter: Function
 ) => {
   const setSuggestion = (_userEnteringText: string = "") => {
     const userEnteringText = new UserEnteringText(_userEnteringText);
@@ -74,17 +74,19 @@ const setupSuggestions = (
     // or if ends with special character
     // need to suggest words which were already used less frequently
     if (userEnteringText.endsWithSpace) {
-      return formSetter(
+      return suggestionFormTextSetter(
         _userEnteringText + possibleTranscript.nextPossibleWord
       );
     }
 
     if (userEnteringText.isEmpty) {
-      return formSetter(_userEnteringText + possibleTranscript.firstWord);
+      return suggestionFormTextSetter(
+        _userEnteringText + possibleTranscript.firstWord
+      );
     }
 
     // need to suggest words which were already used less frequently
-    formSetter(
+    suggestionFormTextSetter(
       _userEnteringText + possibleTranscript.endingWhichStartWithLastEnteredWord
     );
   };
