@@ -60,28 +60,36 @@ class PossibleTranscript extends Text {
   }
 }
 
-const setSuggestion = (_userEnteringText: string) => {
-  const userEnteringText = new UserEnteringText(_userEnteringText);
-  const possibleTranscript = new PossibleTranscript(
-    Object.getPrototypeOf(setSuggestion)._possibleTranscript,
-    userEnteringText
-  );
-  const formSetter = Object.getPrototypeOf(setSuggestion).formSetter;
+const setupSuggestions = (
+  _possibleTranscript: string,
+  formSetter: Function
+) => {
+  const setSuggestion = (_userEnteringText: string) => {
+    const userEnteringText = new UserEnteringText(_userEnteringText);
+    const possibleTranscript = new PossibleTranscript(
+      _possibleTranscript,
+      userEnteringText
+    );
 
-  // or if ends with special character
-  // need to suggest words which were already used less frequently
-  if (userEnteringText.endsWithSpace) {
-    return formSetter(_userEnteringText + possibleTranscript.nextPossibleWord);
-  }
+    // or if ends with special character
+    // need to suggest words which were already used less frequently
+    if (userEnteringText.endsWithSpace) {
+      return formSetter(
+        _userEnteringText + possibleTranscript.nextPossibleWord
+      );
+    }
 
-  if (userEnteringText.isEmpty) {
-    return formSetter(_userEnteringText + possibleTranscript.firstWord);
-  }
+    if (userEnteringText.isEmpty) {
+      return formSetter(_userEnteringText + possibleTranscript.firstWord);
+    }
 
-  // need to suggest words which were already used less frequently
-  formSetter(
-    _userEnteringText + possibleTranscript.endingWhichStartWithLastEnteredWord
-  );
+    // need to suggest words which were already used less frequently
+    formSetter(
+      _userEnteringText + possibleTranscript.endingWhichStartWithLastEnteredWord
+    );
+  };
+
+  return setSuggestion;
 };
 
 function App() {
@@ -91,8 +99,7 @@ function App() {
   const [textareamainvalue, settextareamainvalue] = useState("");
   const [textaresecondaryvalue, settextaresecondaryvalue] = useState("");
 
-  Object.getPrototypeOf(setSuggestion).formSetter = settextaresecondaryvalue;
-  Object.getPrototypeOf(setSuggestion)._possibleTranscript = text;
+  const setSuggestion = setupSuggestions(text, settextaresecondaryvalue);
 
   const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const enteredText = event.target.value;
