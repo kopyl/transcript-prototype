@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import { removeSpacesFromArray, removeSpecialCharacters } from "./utils";
-import { possibleTranscript } from "./text";
+import { transcriptPlaceholder } from "./text";
 
 class Text {
   protected originalContent: string;
@@ -98,12 +98,13 @@ function App() {
   const [userEnteringText, setUserEnteringText] = useState("");
   const [suggestionText, setSuggestionText] = useState("");
 
-  const setSuggestion = setupSuggestions(possibleTranscript, setSuggestionText);
+  const [transcript, setTranscript] = useState(transcriptPlaceholder);
+
+  const setSuggestion = setupSuggestions(transcript, setSuggestionText);
 
   const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const enteredText = event.target.value;
     setUserEnteringText(enteredText);
-    setSuggestion(enteredText);
   };
 
   const onKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -115,12 +116,15 @@ function App() {
   const autoComplete = () => {
     const textToBeEntered = suggestionText + " ";
     setUserEnteringText(textToBeEntered);
-    setSuggestion(textToBeEntered);
   };
 
   useEffect(() => {
     setSuggestion();
   }, []);
+
+  useEffect(() => {
+    setSuggestion(userEnteringText);
+  }, [userEnteringText, transcript]);
 
   return (
     <div className="App">
