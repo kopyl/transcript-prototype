@@ -51,6 +51,14 @@ class PossibleTranscript extends Text {
         ?.slice(this.userEnteringText.lastWord.length) || ""
     );
   }
+
+  get nextPossibleWord() {
+    for (let wordCound in this.array) {
+      if (this.array[wordCound] === this.userEnteringText.lastWord)
+        return this.array[parseInt(wordCound) + 1] ?? "";
+    }
+    return "";
+  }
 }
 
 const makeSuggestion = (
@@ -64,7 +72,7 @@ const makeSuggestion = (
   );
 
   if (userEnteringText.endsWithSpace) {
-    return ""; // placeholder. or if ends with special character -> suggest a new word
+    return possibleTranscript.nextPossibleWord; // placeholder. or if ends with special character -> suggest a new word
   }
 
   if (userEnteringText.isEmpty) {
@@ -97,6 +105,8 @@ function App() {
 
   const autoComplete = () => {
     settextareamainvalue(textaresecondaryvalue + " ");
+    const suggestion = makeSuggestion(text, textaresecondaryvalue + " ");
+    settextaresecondaryvalue(textaresecondaryvalue + " " + suggestion);
   };
 
   useEffect(() => {
