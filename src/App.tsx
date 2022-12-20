@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
-import { text } from "./text";
 import { removeSpacesFromArray, removeSpecialCharacters } from "./utils";
+import { text } from "./text";
 
 class Text {
   protected originalContent: string;
