@@ -85,6 +85,9 @@ const _setSuggestion = (
     userEnteringText
   );
 
+  // need to suggest words which were already used less frequently
+  // where suggestion ands with possibleTranscript.nextPossibleWord
+
   if (userEnteringText.endsWithOpenBracket) {
     if (userEnteringText.hasOnlyOneCharacter) {
       return suggestionFormTextSetter(
@@ -103,7 +106,6 @@ const _setSuggestion = (
     );
   }
 
-  // need to suggest words which were already used less frequently
   if (userEnteringText.endsWithSpace) {
     return suggestionFormTextSetter(
       _userEnteringText + possibleTranscript.nextPossibleWord
@@ -116,7 +118,6 @@ const _setSuggestion = (
     );
   }
 
-  // need to suggest words which were already used less frequently
   suggestionFormTextSetter(
     _userEnteringText + possibleTranscript.endingWhichStartWithLastEnteredWord
   );
