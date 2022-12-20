@@ -36,7 +36,7 @@ class UserEnteringText extends Text {
 }
 
 class PossibleTranscript extends Text {
-  constructor(public content: string, private userEnteringText: Text) {
+  constructor(content: string, private userEnteringText: Text) {
     super(content);
   }
 
@@ -60,7 +60,7 @@ const makeSuggestion = (
   );
 
   if (userEnteringText.endsWithSpace) {
-    return ""; //placeholder. or if ends with special character -> suggest a new word
+    return ""; // placeholder. or if ends with special character -> suggest a new word
   }
 
   if (userEnteringText.isEmpty) {
@@ -69,8 +69,6 @@ const makeSuggestion = (
 
   // need to suggest words which were already used less frequently
   return possibleTranscript.endingWhichStartWithLastEnteredWord;
-
-  // possibleTranscript.getEndingWhichStartWithLastEnteredWord
 };
 
 function App() {
