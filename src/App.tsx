@@ -53,9 +53,9 @@ class PossibleTranscript extends Text {
   }
 
   get nextPossibleWord() {
-    for (let wordCound in this.array) {
-      if (this.array[wordCound] === this.userEnteringText.lastWord)
-        return this.array[parseInt(wordCound) + 1] ?? "";
+    for (let wordCount in this.array) {
+      if (this.array[wordCount] === this.userEnteringText.lastWord)
+        return this.array[parseInt(wordCount) + 1] ?? "";
     }
     return "";
   }
