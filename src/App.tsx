@@ -60,38 +60,35 @@ class PossibleTranscript extends Text {
   }
 }
 
-const setupSuggestions = (
+const setupSuggestion = (
   _possibleTranscript: string,
-  suggestionFormTextSetter: Function
+  suggestionFormTextSetter: Function,
+  _userEnteringText: string = ""
 ) => {
-  const setSuggestion = (_userEnteringText: string = "") => {
-    const userEnteringText = new UserEnteringText(_userEnteringText);
-    const possibleTranscript = new PossibleTranscript(
-      _possibleTranscript,
-      userEnteringText
+  const userEnteringText = new UserEnteringText(_userEnteringText);
+  const possibleTranscript = new PossibleTranscript(
+    _possibleTranscript,
+    userEnteringText
+  );
+
+  // or if ends with special character
+  // need to suggest words which were already used less frequently
+  if (userEnteringText.endsWithSpace) {
+    return suggestionFormTextSetter(
+      _userEnteringText + possibleTranscript.nextPossibleWord
     );
+  }
 
-    // or if ends with special character
-    // need to suggest words which were already used less frequently
-    if (userEnteringText.endsWithSpace) {
-      return suggestionFormTextSetter(
-        _userEnteringText + possibleTranscript.nextPossibleWord
-      );
-    }
-
-    if (userEnteringText.isEmpty) {
-      return suggestionFormTextSetter(
-        _userEnteringText + possibleTranscript.firstWord
-      );
-    }
-
-    // need to suggest words which were already used less frequently
-    suggestionFormTextSetter(
-      _userEnteringText + possibleTranscript.endingWhichStartWithLastEnteredWord
+  if (userEnteringText.isEmpty) {
+    return suggestionFormTextSetter(
+      _userEnteringText + possibleTranscript.firstWord
     );
-  };
+  }
 
-  return setSuggestion;
+  // need to suggest words which were already used less frequently
+  suggestionFormTextSetter(
+    _userEnteringText + possibleTranscript.endingWhichStartWithLastEnteredWord
+  );
 };
 
 function App() {
@@ -100,7 +97,7 @@ function App() {
 
   const [transcript, setTranscript] = useState(transcriptPlaceholder);
 
-  const setSuggestion = setupSuggestions(transcript, setSuggestionText);
+  const setSuggestion = setupSuggestion.bind("", transcript, setSuggestionText);
 
   const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const enteredText = event.target.value;
