@@ -73,7 +73,7 @@ class PossibleTranscript extends Text {
       )
         return this.array[parseInt(wordCount) + 1] ?? "";
     }
-    return "";
+    return this.firstWord;
   }
 }
 
@@ -92,6 +92,8 @@ const _setSuggestion = (
   // where suggestion ends with possibleTranscript.nextPossibleWord
 
   if (userEnteringText.endsWithOpenBracket) {
+    // console.log("userEnteringText.endsWithOpenBracket");
+
     if (userEnteringText.hasOnlyOneCharacter) {
       return suggestionFormTextSetter(
         _userEnteringText + possibleTranscript.firstWord
