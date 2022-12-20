@@ -4,15 +4,16 @@ import { removeSpacesFromArray, removeSpecialCharacters } from "./utils";
 import { transcriptPlaceholder } from "./text";
 
 class Text {
-  protected originalContent: string;
+  public content: string;
+  public contentWithoutSpecialChars: string;
 
-  constructor(public content: string) {
-    this.originalContent = content;
-    this.content = removeSpecialCharacters(this.content);
+  constructor(content: string) {
+    this.content = content;
+    this.contentWithoutSpecialChars = removeSpecialCharacters(this.content);
   }
 
   public get array() {
-    const array = this.content.replace("\n", " ").split(" ");
+    const array = this.contentWithoutSpecialChars.replace("\n", " ").split(" ");
     return removeSpacesFromArray(array) ?? [];
   }
 
@@ -28,25 +29,25 @@ class Text {
 
 class UserEnteringText extends Text {
   get isEmpty() {
-    return this.originalContent === "";
+    return this.content === "";
   }
 
   get hasOnlyOneCharacter() {
-    return this.originalContent.length === 1;
+    return this.content.length === 1;
   }
 
   get endsWithSpace() {
-    return this.originalContent.endsWith(" ");
+    return this.content.endsWith(" ");
   }
 
   get endsWithSpecialCharacterExceptOpenBracket() {
     const format = /[`!@#$%^&*)_+\-={};':"\\|,.<>\/?~]/;
-    return format.test(this.originalContent.slice(-1));
+    return format.test(this.content.slice(-1));
   }
 
   get endsWithOpenBracket() {
     const format = /[(\[{]/;
-    return format.test(this.originalContent.slice(-1));
+    return format.test(this.content.slice(-1));
   }
 }
 
