@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="25px" height="32px" viewBox="0 0 25 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>logo</title>
+    <defs>
+        <linearGradient x1="38.8317383%" y1="-3.32144427%" x2="51.677832%" y2="85.773013%" id="linearGradient-1">
+            <stop stop-color="#41D1FF" offset="0%"></stop>
+            <stop stop-color="#BD34FE" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="27.9858242%" y1="44.6935556%" x2="51.0501932%" y2="54.3366667%" id="linearGradient-2">
+            <stop stop-color="#FFEA83" offset="0%"></stop>
+            <stop stop-color="#FFDD35" offset="8.333%"></stop>
+            <stop stop-color="#FFA800" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="27.9858242%" y1="30.6599835%" x2="51.0501932%" y2="65.8055372%" id="linearGradient-3">
+            <stop stop-color="#FFEA83" offset="0%"></stop>
+            <stop stop-color="#FFDD35" offset="8.333%"></stop>
+            <stop stop-color="#FFA800" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="27.9858242%" y1="2.242%" x2="51.0501932%" y2="89.03%" id="linearGradient-4">
+            <stop stop-color="#FFEA83" offset="0%"></stop>
+            <stop stop-color="#FFDD35" offset="8.333%"></stop>
+            <stop stop-color="#FFA800" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="logo" fill-rule="nonzero">
+            <path d="M17,4.5 L17,21.5 C17,22.3284271 17.6715729,23 18.5,23 L18.5,23 L18.5,23 C20.9852814,23 23,25.0147186 23,27.5 C23,29.9852814 20.9852814,32 18.5,32 L13,32 C10.2385763,32 8,29.7614237 8,27 L8,4.5 C8,2.01471863 10.0147186,0 12.5,0 C14.9852814,0 17,2.01471863 17,4.5 Z" id="Path" fill="url(#linearGradient-1)"></path>
+            <rect id="Rectangle" fill="url(#linearGradient-2)" x="0" y="6" width="21" height="7" rx="3.5"></rect>
+            <rect id="Rectangle" fill="url(#linearGradient-3)" x="0" y="14" width="11" height="7" rx="3.5"></rect>
+            <rect id="Rectangle" fill="url(#linearGradient-4)" x="18" y="14" width="7" height="7" rx="3.5"></rect>
+        </g>
+    </g>
+</svg>
