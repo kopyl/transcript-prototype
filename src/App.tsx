@@ -99,10 +99,6 @@ class Suggestion {
   }
 }
 
-const SuggestionProxy = () => {
-  return Suggestion;
-};
-
 function App() {
   const textareamain = useRef() as MutableRefObject<HTMLTextAreaElement>;
   const textaresecondary = useRef() as MutableRefObject<HTMLTextAreaElement>;
