@@ -86,7 +86,7 @@ const _setSuggestion = (
   );
 
   // need to suggest words which were already used less frequently
-  // where suggestion ands with possibleTranscript.nextPossibleWord
+  // where suggestion ends with possibleTranscript.nextPossibleWord
 
   if (userEnteringText.endsWithOpenBracket) {
     if (userEnteringText.hasOnlyOneCharacter) {
