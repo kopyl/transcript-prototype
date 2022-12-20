@@ -12,7 +12,7 @@ class Text {
   }
 
   public get array() {
-    const array = this.content.split(" ");
+    const array = this.content.replace("\n", " ").split(" ");
     return removeSpacesFromArray(array);
   }
 
