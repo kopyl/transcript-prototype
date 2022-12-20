@@ -74,7 +74,7 @@ class PossibleTranscript extends Text {
   }
 }
 
-const setupSuggestion = (
+const _setSuggestion = (
   _possibleTranscript: string,
   suggestionFormTextSetter: Function,
   _userEnteringText: string = ""
@@ -129,7 +129,7 @@ function App() {
 
   const [transcript, _] = useState(transcriptPlaceholder);
 
-  const setSuggestion = setupSuggestion.bind("", transcript, setSuggestionText);
+  const setSuggestion = _setSuggestion.bind("", transcript, setSuggestionText);
 
   const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const enteredText = event.target.value;
