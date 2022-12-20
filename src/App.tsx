@@ -60,44 +60,29 @@ class PossibleTranscript extends Text {
   }
 }
 
-class Suggestion {
-  private suggestion: string = "";
-  public formSetter: Function = () => {};
-  public _possibleTranscript: string = "";
+const setSuggestion = (_userEnteringText: string) => {
+  const userEnteringText = new UserEnteringText(_userEnteringText);
+  const possibleTranscript = new PossibleTranscript(
+    Object.getPrototypeOf(setSuggestion)._possibleTranscript,
+    userEnteringText
+  );
+  const formSetter = Object.getPrototypeOf(setSuggestion).formSetter;
 
-  private userEnteringText: UserEnteringText;
-  private possibleTranscript: PossibleTranscript;
-
-  constructor(private _userEnteringText: string) {
-    this.userEnteringText = new UserEnteringText(_userEnteringText);
-    this.possibleTranscript = new PossibleTranscript(
-      Suggestion.prototype._possibleTranscript,
-      this.userEnteringText
-    );
-    this.make();
-    console.log(this._userEnteringText);
+  // or if ends with special character
+  // need to suggest words which were already used less frequently
+  if (userEnteringText.endsWithSpace) {
+    return formSetter(_userEnteringText + possibleTranscript.nextPossibleWord);
   }
 
-  make() {
-    // or if ends with special character
-    // need to suggest words which were already used less frequently
-    if (this.userEnteringText.endsWithSpace) {
-      return (this.suggestion = this.possibleTranscript.nextPossibleWord);
-    }
-
-    if (this.userEnteringText.isEmpty) {
-      return (this.suggestion = this.possibleTranscript.firstWord);
-    }
-
-    // need to suggest words which were already used less frequently
-    this.suggestion =
-      this.possibleTranscript.endingWhichStartWithLastEnteredWord;
+  if (userEnteringText.isEmpty) {
+    return formSetter(_userEnteringText + possibleTranscript.firstWord);
   }
 
-  set() {
-    Suggestion.prototype.formSetter(this._userEnteringText + this.suggestion);
-  }
-}
+  // need to suggest words which were already used less frequently
+  formSetter(
+    _userEnteringText + possibleTranscript.endingWhichStartWithLastEnteredWord
+  );
+};
 
 function App() {
   const textareamain = useRef() as MutableRefObject<HTMLTextAreaElement>;
@@ -106,15 +91,13 @@ function App() {
   const [textareamainvalue, settextareamainvalue] = useState("");
   const [textaresecondaryvalue, settextaresecondaryvalue] = useState("");
 
-  Suggestion.prototype.formSetter = settextaresecondaryvalue;
-  Suggestion.prototype._possibleTranscript = text;
+  Object.getPrototypeOf(setSuggestion).formSetter = settextaresecondaryvalue;
+  Object.getPrototypeOf(setSuggestion)._possibleTranscript = text;
 
   const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const enteredText = event.target.value;
     settextareamainvalue(enteredText);
-
-    const suggestion = new Suggestion(enteredText);
-    suggestion.set();
+    setSuggestion(enteredText);
   };
 
   const onKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -126,14 +109,11 @@ function App() {
   const autoComplete = () => {
     const textToBeEntered = textaresecondaryvalue + " ";
     settextareamainvalue(textToBeEntered);
-
-    const suggestion = new Suggestion(textToBeEntered);
-    suggestion.set();
+    setSuggestion(textToBeEntered);
   };
 
   useEffect(() => {
-    const suggestion = new Suggestion("");
-    suggestion.set();
+    setSuggestion("");
   }, []);
 
   return (
