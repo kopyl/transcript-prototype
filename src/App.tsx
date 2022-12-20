@@ -1,4 +1,4 @@
-import React, { MutableRefObject, useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import { text } from "./text";
 import { removeSpacesFromArray, removeSpecialCharacters } from "./utils";
@@ -93,9 +93,6 @@ const setupSuggestions = (
 };
 
 function App() {
-  const textareamain = useRef() as MutableRefObject<HTMLTextAreaElement>;
-  const textaresecondary = useRef() as MutableRefObject<HTMLTextAreaElement>;
-
   const [userEnteringText, setUserEnteringText] = useState("");
   const [suggestionText, setSuggestionText] = useState("");
 
@@ -128,16 +125,11 @@ function App() {
       <div className="textarea">
         <textarea
           value={userEnteringText}
-          ref={textareamain}
           className="main"
           onChange={onChange}
           onKeyDown={onKeyDown}
         />
-        <textarea
-          ref={textaresecondary}
-          className="overlay"
-          defaultValue={suggestionText}
-        />
+        <textarea className="overlay" defaultValue={suggestionText} />
       </div>
     </div>
   );
