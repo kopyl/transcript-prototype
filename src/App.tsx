@@ -96,14 +96,14 @@ function App() {
   const textareamain = useRef() as MutableRefObject<HTMLTextAreaElement>;
   const textaresecondary = useRef() as MutableRefObject<HTMLTextAreaElement>;
 
-  const [textareamainvalue, settextareamainvalue] = useState("");
-  const [textaresecondaryvalue, settextaresecondaryvalue] = useState("");
+  const [userEnteringText, setUserEnteringText] = useState("");
+  const [suggestionText, setSuggestionText] = useState("");
 
-  const setSuggestion = setupSuggestions(text, settextaresecondaryvalue);
+  const setSuggestion = setupSuggestions(text, setSuggestionText);
 
   const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const enteredText = event.target.value;
-    settextareamainvalue(enteredText);
+    setUserEnteringText(enteredText);
     setSuggestion(enteredText);
   };
 
@@ -114,8 +114,8 @@ function App() {
   };
 
   const autoComplete = () => {
-    const textToBeEntered = textaresecondaryvalue + " ";
-    settextareamainvalue(textToBeEntered);
+    const textToBeEntered = suggestionText + " ";
+    setUserEnteringText(textToBeEntered);
     setSuggestion(textToBeEntered);
   };
 
@@ -127,7 +127,7 @@ function App() {
     <div className="App">
       <div className="textarea">
         <textarea
-          value={textareamainvalue}
+          value={userEnteringText}
           ref={textareamain}
           className="main"
           onChange={onChange}
@@ -136,7 +136,7 @@ function App() {
         <textarea
           ref={textaresecondary}
           className="overlay"
-          defaultValue={textaresecondaryvalue}
+          defaultValue={suggestionText}
         />
       </div>
     </div>
