@@ -4,11 +4,9 @@ import { removeSpacesFromArray, removeSpecialCharacters } from "./utils";
 import { transcriptPlaceholder } from "./text";
 
 class Text {
-  public content: string;
   private contentWithoutSpecialChars: string;
 
-  constructor(content: string) {
-    this.content = content;
+  constructor(public content: string) {
     this.contentWithoutSpecialChars = removeSpecialCharacters(this.content);
   }
 
