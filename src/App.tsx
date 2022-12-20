@@ -92,35 +92,36 @@ const _setSuggestion = (
   if (userEnteringText.endsWithOpenBracket) {
     if (userEnteringText.hasOnlyOneCharacter) {
       return suggestionFormTextSetter(
-        _userEnteringText + possibleTranscript.firstWord
+        userEnteringText.content + possibleTranscript.firstWord
       );
     }
 
     return suggestionFormTextSetter(
-      _userEnteringText + possibleTranscript.nextPossibleWord
+      userEnteringText.content + possibleTranscript.nextPossibleWord
     );
   }
 
   if (userEnteringText.endsWithSpecialCharacterExceptOpenBracket) {
     return suggestionFormTextSetter(
-      _userEnteringText + " " + possibleTranscript.nextPossibleWord
+      userEnteringText.content + " " + possibleTranscript.nextPossibleWord
     );
   }
 
   if (userEnteringText.endsWithSpace) {
     return suggestionFormTextSetter(
-      _userEnteringText + possibleTranscript.nextPossibleWord
+      userEnteringText.content + possibleTranscript.nextPossibleWord
     );
   }
 
   if (userEnteringText.isEmpty) {
     return suggestionFormTextSetter(
-      _userEnteringText + possibleTranscript.firstWord
+      userEnteringText.content + possibleTranscript.firstWord
     );
   }
 
   suggestionFormTextSetter(
-    _userEnteringText + possibleTranscript.endingWhichStartWithLastEnteredWord
+    userEnteringText.content +
+      possibleTranscript.endingWhichStartWithLastEnteredWord
   );
 };
 
