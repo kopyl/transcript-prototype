@@ -30,8 +30,22 @@ class UserEnteringText extends Text {
     return this.originalContent === "";
   }
 
+  get hasOnlyOneCharacter() {
+    return this.originalContent.length === 1;
+  }
+
   get endsWithSpace() {
     return this.originalContent.endsWith(" ");
+  }
+
+  get endsWithSpecialCharacterExceptOpenBracket() {
+    const format = /[`!@#$%^&*)_+\-={};':"\\|,.<>\/?~]/;
+    return format.test(this.originalContent.slice(-1));
+  }
+
+  get endsWithOpenBracket() {
+    const format = /[(\[{]/;
+    return format.test(this.originalContent.slice(-1));
   }
 }
 
@@ -70,6 +84,24 @@ const setupSuggestion = (
     _possibleTranscript,
     userEnteringText
   );
+
+  if (userEnteringText.endsWithOpenBracket) {
+    if (userEnteringText.hasOnlyOneCharacter) {
+      return suggestionFormTextSetter(
+        _userEnteringText + possibleTranscript.firstWord
+      );
+    }
+
+    return suggestionFormTextSetter(
+      _userEnteringText + possibleTranscript.nextPossibleWord
+    );
+  }
+
+  if (userEnteringText.endsWithSpecialCharacterExceptOpenBracket) {
+    return suggestionFormTextSetter(
+      _userEnteringText + " " + possibleTranscript.nextPossibleWord
+    );
+  }
 
   // or if ends with special character
   // need to suggest words which were already used less frequently
