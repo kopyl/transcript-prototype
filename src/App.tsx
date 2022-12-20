@@ -13,7 +13,7 @@ class Text {
 
   public get array() {
     const array = this.content.replace("\n", " ").split(" ");
-    return removeSpacesFromArray(array);
+    return removeSpacesFromArray(array) ?? [];
   }
 
   public get firstWord() {
@@ -21,7 +21,7 @@ class Text {
   }
 
   public get lastWord() {
-    return this.array[this.array.length - 1];
+    return this.array[this.array.length - 1] ?? "";
   }
 }
 
