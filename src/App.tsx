@@ -64,7 +64,7 @@ const setupSuggestions = (
   _possibleTranscript: string,
   formSetter: Function
 ) => {
-  const setSuggestion = (_userEnteringText: string) => {
+  const setSuggestion = (_userEnteringText: string = "") => {
     const userEnteringText = new UserEnteringText(_userEnteringText);
     const possibleTranscript = new PossibleTranscript(
       _possibleTranscript,
@@ -120,7 +120,7 @@ function App() {
   };
 
   useEffect(() => {
-    setSuggestion("");
+    setSuggestion();
   }, []);
 
   return (
