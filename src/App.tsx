@@ -104,9 +104,10 @@ function App() {
   };
 
   const autoComplete = () => {
-    settextareamainvalue(textaresecondaryvalue + " ");
-    const suggestion = makeSuggestion(text, textaresecondaryvalue + " ");
-    settextaresecondaryvalue(textaresecondaryvalue + " " + suggestion);
+    const newValue = textaresecondaryvalue + " ";
+    settextareamainvalue(newValue);
+    const suggestion = makeSuggestion(text, newValue);
+    settextaresecondaryvalue(newValue + suggestion);
   };
 
   useEffect(() => {
