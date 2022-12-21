@@ -100,10 +100,6 @@ export const getSuggestion = (
     return userEnteringText.content + possibleTranscript.nextPossibleWord;
   }
 
-  if (userEnteringText.isEmpty) {
-    return userEnteringText.content + possibleTranscript.firstWord;
-  }
-
   if (possibleTranscript.endingWhichStartWithLastEnteredWord) {
     return (
       userEnteringText.content +
