@@ -28,24 +28,24 @@ class Text {
 }
 
 export class UserEnteringText extends Text {
-  get isEmpty() {
+  get isEmpty(): boolean {
     return this.content === ""
   }
 
-  get hasOnlyOneCharacter() {
+  get hasOnlyOneCharacter(): boolean {
     return this.content.length === 1
   }
 
-  get endsWithSpace() {
+  get endsWithSpace(): boolean {
     return this.content.endsWith(" ")
   }
 
-  get endsWithSpecialCharacter() {
+  get endsWithSpecialCharacter(): boolean {
     const format = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/
     return format.test(this.content.slice(-1))
   }
 
-  get endsWithOpenBracketOrSpace() {
+  get endsWithOpenBracketOrSpace(): boolean {
     const format = /[ (\[{]/
     return format.test(this.content.slice(-1))
   }
@@ -59,7 +59,7 @@ export class PossibleTranscript extends Text {
     super(content)
   }
 
-  get endingOfLastEnteredWord() {
+  get endingOfLastEnteredWord(): string {
     const enteringTextLastWord = this.userEnteringText.lastWord
     const lastEnteredWord = enteringTextLastWord.toLowerCase()
     return (
@@ -69,7 +69,7 @@ export class PossibleTranscript extends Text {
     )
   }
 
-  get nextPossibleWord() {
+  get nextPossibleWord(): string {
     const array = this.array
     const lastEnteredWord = this.userEnteringText.lastWord.toLowerCase()
     for (let wordCount in array) {
@@ -92,7 +92,7 @@ export class PossibleTranscript extends Text {
 export const getSuggestion = (
   userEnteringText: InstanceType<typeof UserEnteringText>,
   possibleTranscript: InstanceType<typeof PossibleTranscript>
-) => {
+): string => {
   // need to suggest words which were already used less frequently
   // where suggestion ends with possibleTranscript.nextPossibleWord
 
