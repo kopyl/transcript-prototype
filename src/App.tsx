@@ -39,7 +39,7 @@ class UserEnteringText extends Text {
   }
 
   get endsWithSpecialCharacterExceptOpenBracket() {
-    const format = /[`!@#$%^&*)_+\-={};':"\\|,.<>\/?~]/;
+    const format = /[`!@#$%^&*)_+\-=\]{};':"\\|,.<>\/?~]/;
     return format.test(this.content.slice(-1));
   }
 
