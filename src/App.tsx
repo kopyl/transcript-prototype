@@ -111,9 +111,9 @@ export const getSuggestion = (
   return withInput(" ", possibleTranscript.nextPossibleWord)
 }
 
-const _setSuggestion = (
-  _possibleTranscript: string,
+const setSuggestion = (
   suggestionFormTextSetter: React.Dispatch<React.SetStateAction<string>>,
+  _possibleTranscript: string,
   _userEnteringText: string = ""
 ) => {
   const userEnteringText = new UserEnteringText(_userEnteringText)
@@ -132,12 +132,6 @@ function App() {
 
   const [transcript, _] = useState(transcriptPlaceholder)
 
-  const setSuggestion = _setSuggestion.bind(
-    "",
-    transcript,
-    setSuggestionText
-  )
-
   const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const enteredText = event.target.value
     setUserEnteringText(enteredText)
@@ -155,7 +149,7 @@ function App() {
   }
 
   useEffect(() => {
-    setSuggestion(userEnteringText)
+    setSuggestion(setSuggestionText, transcript, userEnteringText)
   }, [userEnteringText, transcript])
 
   return (
