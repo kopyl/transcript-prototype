@@ -102,13 +102,12 @@ export const getSuggestion = (
       userEnteringText.content +
       possibleTranscript.endingWhichStartWithLastEnteredWord
     );
-  } else {
-    return (
-      userEnteringText.content +
-      " " +
-      possibleTranscript.nextPossibleWord
-    ).trim();
   }
+  return (
+    userEnteringText.content +
+    " " +
+    possibleTranscript.nextPossibleWord
+  ).trim();
 };
 
 const _setSuggestion = (
