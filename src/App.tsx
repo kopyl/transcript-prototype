@@ -54,7 +54,7 @@ export class PossibleTranscript extends Text {
     super(content);
   }
 
-  get endingWhichStartWithLastEnteredWord() {
+  get endingOfLastEnteredWord() {
     const enteringTextLastWord = this.userEnteringText.lastWord;
     const lastEnteredWord = enteringTextLastWord.toLowerCase();
     return (
@@ -94,10 +94,9 @@ export const getSuggestion = (
   if (userEnteringText.endsWithSpecialCharacter)
     return userEnteringText.content + " " + possibleTranscript.nextPossibleWord;
 
-  if (possibleTranscript.endingWhichStartWithLastEnteredWord)
+  if (possibleTranscript.endingOfLastEnteredWord)
     return (
-      userEnteringText.content +
-      possibleTranscript.endingWhichStartWithLastEnteredWord
+      userEnteringText.content + possibleTranscript.endingOfLastEnteredWord
     );
   return (
     userEnteringText.content +
