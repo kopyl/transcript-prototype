@@ -29,8 +29,6 @@ testGetSuggestion("Уявіть,", transcriptPlaceholderForTest, "Уявіть, 
 testGetSuggestion("Уявіть, ", transcriptPlaceholderForTest, "Уявіть, що");
 testGetSuggestion("(", transcriptPlaceholderForTest, "(Уявіть");
 testGetSuggestion("Уявіть [", transcriptPlaceholderForTest, "Уявіть [що");
-// run last test with all special characters
-// for ()
 
 for (let character of specialCharactersExceptOpenBraces) {
   testGetSuggestion(
