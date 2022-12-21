@@ -1,83 +1,88 @@
-import React, { useEffect, useState } from "react";
-import "./App.css";
-import { removeSpacesFromArray, removeSpecialCharacters } from "./utils";
-import { transcriptPlaceholder } from "./text";
+import React, { useEffect, useState } from "react"
+import "./App.css"
+import { removeSpacesFromArray, removeSpecialCharacters } from "./utils"
+import { transcriptPlaceholder } from "./text"
 
 class Text {
-  private contentWithoutSpecialChars: string;
+  private contentWithoutSpecialChars: string
 
   constructor(public content: string) {
-    this.contentWithoutSpecialChars = removeSpecialCharacters(this.content);
+    this.contentWithoutSpecialChars = removeSpecialCharacters(this.content)
   }
 
   public get array(): string[] | [] {
-    const array = this.contentWithoutSpecialChars.replace("\n", " ").split(" ");
-    return removeSpacesFromArray(array) ?? [];
+    const array = this.contentWithoutSpecialChars
+      .replace("\n", " ")
+      .split(" ")
+    return removeSpacesFromArray(array) ?? []
   }
 
   public get firstWord(): string {
-    return this.array[0] ?? "";
+    return this.array[0] ?? ""
   }
 
   public get lastWord(): string {
-    const array = this.array;
-    return array[array.length - 1] ?? "";
+    const array = this.array
+    return array[array.length - 1] ?? ""
   }
 }
 
 export class UserEnteringText extends Text {
   get isEmpty() {
-    return this.content === "";
+    return this.content === ""
   }
 
   get hasOnlyOneCharacter() {
-    return this.content.length === 1;
+    return this.content.length === 1
   }
 
   get endsWithSpace() {
-    return this.content.endsWith(" ");
+    return this.content.endsWith(" ")
   }
 
   get endsWithSpecialCharacter() {
-    const format = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
-    return format.test(this.content.slice(-1));
+    const format = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/
+    return format.test(this.content.slice(-1))
   }
 
   get endsWithOpenBracketOrSpace() {
-    const format = /[ (\[{]/;
-    return format.test(this.content.slice(-1));
+    const format = /[ (\[{]/
+    return format.test(this.content.slice(-1))
   }
 }
 
 export class PossibleTranscript extends Text {
-  constructor(content: string, private userEnteringText: UserEnteringText) {
-    super(content);
+  constructor(
+    content: string,
+    private userEnteringText: UserEnteringText
+  ) {
+    super(content)
   }
 
   get endingOfLastEnteredWord() {
-    const enteringTextLastWord = this.userEnteringText.lastWord;
-    const lastEnteredWord = enteringTextLastWord.toLowerCase();
+    const enteringTextLastWord = this.userEnteringText.lastWord
+    const lastEnteredWord = enteringTextLastWord.toLowerCase()
     return (
       this.array
         .find((word) => word.toLowerCase().startsWith(lastEnteredWord))
         ?.slice(enteringTextLastWord.length) || ""
-    );
+    )
   }
 
   get nextPossibleWord() {
-    const array = this.array;
-    const lastEnteredWord = this.userEnteringText.lastWord.toLowerCase();
+    const array = this.array
+    const lastEnteredWord = this.userEnteringText.lastWord.toLowerCase()
     for (let wordCount in array) {
       if (array[wordCount].toLowerCase() === lastEnteredWord)
-        return array[parseInt(wordCount) + 1] ?? "";
+        return array[parseInt(wordCount) + 1] ?? ""
     }
     if (this.userEnteringText.isEmpty) {
-      return this.firstWord;
+      return this.firstWord
     }
     if (this.userEnteringText.endsWithOpenBracketOrSpace) {
-      return this.firstWord;
+      return this.firstWord
     }
-    return "";
+    return ""
   }
 }
 
@@ -89,62 +94,66 @@ export const getSuggestion = (
   // where suggestion ends with possibleTranscript.nextPossibleWord
 
   const withInput = (...args: string[]) =>
-    [userEnteringText.content, ...args].join("").trim();
+    [userEnteringText.content, ...args].join("").trim()
 
   if (userEnteringText.endsWithOpenBracketOrSpace)
-    return withInput(possibleTranscript.nextPossibleWord);
+    return withInput(possibleTranscript.nextPossibleWord)
 
   if (userEnteringText.endsWithSpecialCharacter)
-    return withInput(" ", possibleTranscript.nextPossibleWord);
+    return withInput(" ", possibleTranscript.nextPossibleWord)
 
   if (possibleTranscript.endingOfLastEnteredWord)
-    return withInput(possibleTranscript.endingOfLastEnteredWord);
+    return withInput(possibleTranscript.endingOfLastEnteredWord)
 
-  return withInput(" ", possibleTranscript.nextPossibleWord);
-};
+  return withInput(" ", possibleTranscript.nextPossibleWord)
+}
 
 const _setSuggestion = (
   _possibleTranscript: string,
   suggestionFormTextSetter: React.Dispatch<React.SetStateAction<string>>,
   _userEnteringText: string = ""
 ) => {
-  const userEnteringText = new UserEnteringText(_userEnteringText);
+  const userEnteringText = new UserEnteringText(_userEnteringText)
   const possibleTranscript = new PossibleTranscript(
     _possibleTranscript,
     userEnteringText
-  );
+  )
 
-  const suggestion = getSuggestion(userEnteringText, possibleTranscript);
-  suggestionFormTextSetter(suggestion);
-};
+  const suggestion = getSuggestion(userEnteringText, possibleTranscript)
+  suggestionFormTextSetter(suggestion)
+}
 
 function App() {
-  const [userEnteringText, setUserEnteringText] = useState("");
-  const [suggestionText, setSuggestionText] = useState("");
+  const [userEnteringText, setUserEnteringText] = useState("")
+  const [suggestionText, setSuggestionText] = useState("")
 
-  const [transcript, _] = useState(transcriptPlaceholder);
+  const [transcript, _] = useState(transcriptPlaceholder)
 
-  const setSuggestion = _setSuggestion.bind("", transcript, setSuggestionText);
+  const setSuggestion = _setSuggestion.bind(
+    "",
+    transcript,
+    setSuggestionText
+  )
 
   const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const enteredText = event.target.value;
-    setUserEnteringText(enteredText);
-  };
+    const enteredText = event.target.value
+    setUserEnteringText(enteredText)
+  }
 
   const onKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (event.key !== "Tab") return;
-    event.preventDefault();
-    autoComplete();
-  };
+    if (event.key !== "Tab") return
+    event.preventDefault()
+    autoComplete()
+  }
 
   const autoComplete = () => {
-    const textToBeEntered = suggestionText + " ";
-    setUserEnteringText(textToBeEntered);
-  };
+    const textToBeEntered = suggestionText + " "
+    setUserEnteringText(textToBeEntered)
+  }
 
   useEffect(() => {
-    setSuggestion(userEnteringText);
-  }, [userEnteringText, transcript]);
+    setSuggestion(userEnteringText)
+  }, [userEnteringText, transcript])
 
   return (
     <div className="App">
@@ -158,7 +167,7 @@ function App() {
         <textarea className="overlay" defaultValue={suggestionText} />
       </div>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

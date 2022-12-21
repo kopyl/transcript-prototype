@@ -1,8 +1,8 @@
-import { getSuggestion, UserEnteringText, PossibleTranscript } from "App";
-import { transcriptPlaceholderForTest } from "tests/utils";
-import { specialCharactersExceptOpenBraces } from "tests/utils";
+import { getSuggestion, UserEnteringText, PossibleTranscript } from "App"
+import { transcriptPlaceholderForTest } from "tests/utils"
+import { specialCharactersExceptOpenBraces } from "tests/utils"
 
-const text = transcriptPlaceholderForTest;
+const text = transcriptPlaceholderForTest
 
 const testGetSuggestion = (
   input: string,
@@ -11,31 +11,31 @@ const testGetSuggestion = (
   description: string = "getSuggestion should return the correct suggestion"
 ) => {
   test(description, () => {
-    const userEnteringText = new UserEnteringText(input);
+    const userEnteringText = new UserEnteringText(input)
     const suggestion = getSuggestion(
       userEnteringText,
       new PossibleTranscript(possibleTranscript, userEnteringText)
-    );
-    expect(suggestion).toBe(expectedSuggestion);
-  });
-};
+    )
+    expect(suggestion).toBe(expectedSuggestion)
+  })
+}
 
-testGetSuggestion("", "Hello, world!", "Hello");
-testGetSuggestion("", text, "Уявіть");
-testGetSuggestion("Уявіть", text, "Уявіть що");
-testGetSuggestion("Уявіть що", text, "Уявіть що в");
-testGetSuggestion("Уявіть ", text, "Уявіть що");
-testGetSuggestion("Уявіть,", text, "Уявіть, що");
-testGetSuggestion("Уявіть, ", text, "Уявіть, що");
-testGetSuggestion("У", text, "Уявіть");
-testGetSuggestion("у", text, "уявіть");
+testGetSuggestion("", "Hello, world!", "Hello")
+testGetSuggestion("", text, "Уявіть")
+testGetSuggestion("Уявіть", text, "Уявіть що")
+testGetSuggestion("Уявіть що", text, "Уявіть що в")
+testGetSuggestion("Уявіть ", text, "Уявіть що")
+testGetSuggestion("Уявіть,", text, "Уявіть, що")
+testGetSuggestion("Уявіть, ", text, "Уявіть, що")
+testGetSuggestion("У", text, "Уявіть")
+testGetSuggestion("у", text, "уявіть")
 
-testGetSuggestion("(", text, "(Уявіть");
-testGetSuggestion("Уявіть [", text, "Уявіть [що");
-testGetSuggestion("Уявіть (", text, "Уявіть (що");
-testGetSuggestion("Уявіть {", text, "Уявіть {що");
+testGetSuggestion("(", text, "(Уявіть")
+testGetSuggestion("Уявіть [", text, "Уявіть [що")
+testGetSuggestion("Уявіть (", text, "Уявіть (що")
+testGetSuggestion("Уявіть {", text, "Уявіть {що")
 
-testGetSuggestion("дереві", text, "дереві");
+testGetSuggestion("дереві", text, "дереві")
 
 for (let character of specialCharactersExceptOpenBraces) {
   testGetSuggestion(
@@ -46,7 +46,7 @@ for (let character of specialCharactersExceptOpenBraces) {
       Suggestion should have space after
       special characters except open braces
     `
-  );
+  )
 }
 
 for (let character of specialCharactersExceptOpenBraces) {
@@ -67,5 +67,5 @@ for (let character of specialCharactersExceptOpenBraces) {
       if (userEnteringText.endsWithSpecialCharacter)
         return withInput(" ", possibleTranscript.nextPossibleWord);
     `
-  );
+  )
 }
