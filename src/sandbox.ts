@@ -1,7 +1,7 @@
 export const textWithoutLastWord = (text: string) => {
-  const array = text.split(" ");
-  return array.slice(0, array.length - 1).join(" ");
-};
+  const array = text.split(" ")
+  return array.slice(0, array.length - 1).join(" ")
+}
 
 // export const makeSuggestion = (
 //   fromPossibleTranscript: string,
@@ -195,3 +195,22 @@ export const textWithoutLastWord = (text: string) => {
 //     );
 //   }
 // });
+
+// get nextPossibleWord() {
+//     const array = this.array
+//     const lastEnteredWord = this.userEnteringText.lastWord.toLowerCase()
+//     for (let wordCount in array) {
+//       if (array[wordCount].toLowerCase() === lastEnteredWord)
+//         return array[parseInt(wordCount) + 1] ?? ""
+//     }
+//     if (this.userEnteringText.isEmpty) {
+//       return this.firstWord
+//     }
+//     if (
+//       this.userEnteringText.endsWithOpenBracketOrSpace &&
+//       this.userEnteringText.hasOnlyOneCharacter
+//     ) {
+//       return this.firstWord
+//     }
+//     return ""
+//   }
