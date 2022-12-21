@@ -29,6 +29,8 @@ testGetSuggestion("Уявіть,", transcriptPlaceholderForTest, "Уявіть, 
 testGetSuggestion("Уявіть, ", transcriptPlaceholderForTest, "Уявіть, що");
 testGetSuggestion("(", transcriptPlaceholderForTest, "(Уявіть");
 testGetSuggestion("Уявіть [", transcriptPlaceholderForTest, "Уявіть [що");
+testGetSuggestion("У", transcriptPlaceholderForTest, "Уявіть");
+testGetSuggestion("у", transcriptPlaceholderForTest, "уявіть");
 
 for (let character of specialCharactersExceptOpenBraces) {
   testGetSuggestion(
