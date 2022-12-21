@@ -1,9 +1,6 @@
 import { getSuggestion, UserEnteringText, PossibleTranscript } from "App";
 import { transcriptPlaceholderForTest } from "text";
-import {
-  specialCharactersExceptOpenBraces,
-  specialCharacters,
-} from "tests/utils";
+import { specialCharactersExceptOpenBraces } from "tests/utils";
 
 const testGetSuggestion = (
   input: string,
