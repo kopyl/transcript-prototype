@@ -97,12 +97,11 @@ export const getSuggestion = (
   if (userEnteringText.endsWithSpace)
     return userEnteringText.content + possibleTranscript.nextPossibleWord;
 
-  if (possibleTranscript.endingWhichStartWithLastEnteredWord) {
+  if (possibleTranscript.endingWhichStartWithLastEnteredWord)
     return (
       userEnteringText.content +
       possibleTranscript.endingWhichStartWithLastEnteredWord
     );
-  }
   return (
     userEnteringText.content +
     " " +
