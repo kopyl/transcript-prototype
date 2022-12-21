@@ -49,6 +49,18 @@ for (let character of specialCharactersExceptOpenBraces) {
   )
 }
 
+for (let character of openBraces) {
+  testGetSuggestion(
+    `Уявіть ${character}`,
+    text,
+    `Уявіть ${character}що`,
+    `
+      Suggestion should not have space after
+      open braces
+    `
+  )
+}
+
 for (let character of specialCharactersExceptOpenBraces) {
   testGetSuggestion(
     `Уявіт${character}`,
