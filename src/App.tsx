@@ -39,7 +39,7 @@ export class UserEnteringText extends Text {
   }
 
   get endsWithSpecialCharacterExceptOpenBracket() {
-    const format = /[`!@#$%^&*)_+\-=\]{};':"\\|,.<>\/?~]/;
+    const format = /[`!@#$%^&*)_+\-=\]};':"\\|,.<>\/?~]/;
     return format.test(this.content.slice(-1));
   }
 
@@ -87,12 +87,13 @@ export const getSuggestion = (
 ) => {
   // need to suggest words which were already used less frequently
   // where suggestion ends with possibleTranscript.nextPossibleWord
-  if (userEnteringText.endsWithOpenBracket) {
-    return userEnteringText.content + possibleTranscript.nextPossibleWord;
-  }
 
   if (userEnteringText.endsWithSpecialCharacterExceptOpenBracket) {
     return userEnteringText.content + " " + possibleTranscript.nextPossibleWord;
+  }
+
+  if (userEnteringText.endsWithOpenBracket) {
+    return userEnteringText.content + possibleTranscript.nextPossibleWord;
   }
 
   if (userEnteringText.endsWithSpace) {
