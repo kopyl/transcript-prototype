@@ -10,16 +10,16 @@ class Text {
     this.contentWithoutSpecialChars = removeSpecialCharacters(this.content);
   }
 
-  public get array() {
+  public get array(): string[] | [] {
     const array = this.contentWithoutSpecialChars.replace("\n", " ").split(" ");
     return removeSpacesFromArray(array) ?? [];
   }
 
-  public get firstWord() {
-    return this.array[0];
+  public get firstWord(): string {
+    return this.array[0] ?? "";
   }
 
-  public get lastWord() {
+  public get lastWord(): string {
     const array = this.array;
     return array[array.length - 1] ?? "";
   }
