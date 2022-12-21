@@ -110,7 +110,11 @@ export const getSuggestion = (
       possibleTranscript.endingWhichStartWithLastEnteredWord
     );
   } else {
-    return userEnteringText.content + " " + possibleTranscript.nextPossibleWord;
+    return (
+      userEnteringText.content +
+      " " +
+      possibleTranscript.nextPossibleWord
+    ).trim();
   }
 };
 

@@ -64,3 +64,5 @@ export const specialCharactersExceptOpenBraces = [
   ".",
   "?",
 ];
+
+export const openBraces = ["(", "{", "["];

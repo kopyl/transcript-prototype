@@ -24,10 +24,15 @@ testGetSuggestion("Уявіть що", transcriptPlaceholderForTest, "Уявіт
 testGetSuggestion("Уявіть ", transcriptPlaceholderForTest, "Уявіть що");
 testGetSuggestion("Уявіть,", transcriptPlaceholderForTest, "Уявіть, що");
 testGetSuggestion("Уявіть, ", transcriptPlaceholderForTest, "Уявіть, що");
-testGetSuggestion("(", transcriptPlaceholderForTest, "(Уявіть");
-testGetSuggestion("Уявіть [", transcriptPlaceholderForTest, "Уявіть [що");
 testGetSuggestion("У", transcriptPlaceholderForTest, "Уявіть");
 testGetSuggestion("у", transcriptPlaceholderForTest, "уявіть");
+
+testGetSuggestion("(", transcriptPlaceholderForTest, "(Уявіть");
+testGetSuggestion("Уявіть [", transcriptPlaceholderForTest, "Уявіть [що");
+testGetSuggestion("Уявіть (", transcriptPlaceholderForTest, "Уявіть (що");
+testGetSuggestion("Уявіть {", transcriptPlaceholderForTest, "Уявіть {що");
+
+testGetSuggestion("дереві", transcriptPlaceholderForTest, "дереві");
 
 for (let character of specialCharactersExceptOpenBraces) {
   testGetSuggestion(
