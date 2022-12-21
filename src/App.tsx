@@ -38,13 +38,13 @@ export class UserEnteringText extends Text {
     return this.content.endsWith(" ");
   }
 
-  get endsWithSpecialCharacterExceptOpenBracket() {
-    const format = /[`!@#$%^&*)_+\-=\]};':"\\|,.<>\/?~]/;
+  get endsWithSpecialCharacter() {
+    const format = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
     return format.test(this.content.slice(-1));
   }
 
-  get endsWithOpenBracket() {
-    const format = /[(\[{]/;
+  get endsWithOpenBracketOrSpace() {
+    const format = /[ (\[{]/;
     return format.test(this.content.slice(-1));
   }
 }
@@ -74,7 +74,7 @@ export class PossibleTranscript extends Text {
     if (this.userEnteringText.isEmpty) {
       return this.firstWord;
     }
-    if (this.userEnteringText.endsWithOpenBracket) {
+    if (this.userEnteringText.endsWithOpenBracketOrSpace) {
       return this.firstWord;
     }
     return "";
@@ -88,14 +88,11 @@ export const getSuggestion = (
   // need to suggest words which were already used less frequently
   // where suggestion ends with possibleTranscript.nextPossibleWord
 
-  if (userEnteringText.endsWithSpecialCharacterExceptOpenBracket)
+  if (userEnteringText.endsWithOpenBracketOrSpace)
+    return userEnteringText.content + possibleTranscript.nextPossibleWord;
+
+  if (userEnteringText.endsWithSpecialCharacter)
     return userEnteringText.content + " " + possibleTranscript.nextPossibleWord;
-
-  if (userEnteringText.endsWithOpenBracket)
-    return userEnteringText.content + possibleTranscript.nextPossibleWord;
-
-  if (userEnteringText.endsWithSpace)
-    return userEnteringText.content + possibleTranscript.nextPossibleWord;
 
   if (possibleTranscript.endingWhichStartWithLastEnteredWord)
     return (
