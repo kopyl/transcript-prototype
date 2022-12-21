@@ -22,9 +22,9 @@ const testGetSuggestion = (
 
 testGetSuggestion("", "Hello, world!", "Hello");
 testGetSuggestion("", transcriptPlaceholderForTest, "Уявіть");
-testGetSuggestion("Уявіть", transcriptPlaceholderForTest, "Уявіть");
+testGetSuggestion("Уявіть", transcriptPlaceholderForTest, "Уявіть що");
+testGetSuggestion("Уявіть що", transcriptPlaceholderForTest, "Уявіть що в");
 testGetSuggestion("Уявіть ", transcriptPlaceholderForTest, "Уявіть що");
-testGetSuggestion("Уявіть що", transcriptPlaceholderForTest, "Уявіть що");
 testGetSuggestion("Уявіть,", transcriptPlaceholderForTest, "Уявіть, що");
 testGetSuggestion("Уявіть, ", transcriptPlaceholderForTest, "Уявіть, що");
 testGetSuggestion("(", transcriptPlaceholderForTest, "(Уявіть");

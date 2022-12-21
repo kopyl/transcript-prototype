@@ -104,10 +104,14 @@ export const getSuggestion = (
     return userEnteringText.content + possibleTranscript.firstWord;
   }
 
-  return (
-    userEnteringText.content +
-    possibleTranscript.endingWhichStartWithLastEnteredWord
-  );
+  if (possibleTranscript.endingWhichStartWithLastEnteredWord) {
+    return (
+      userEnteringText.content +
+      possibleTranscript.endingWhichStartWithLastEnteredWord
+    );
+  } else {
+    return userEnteringText.content + " " + possibleTranscript.nextPossibleWord;
+  }
 };
 
 const _setSuggestion = (
