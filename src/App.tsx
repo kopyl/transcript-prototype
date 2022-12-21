@@ -74,6 +74,9 @@ export class PossibleTranscript extends Text {
     if (this.userEnteringText.isEmpty) {
       return this.firstWord;
     }
+    if (this.userEnteringText.endsWithOpenBracket) {
+      return this.firstWord;
+    }
     return "";
   }
 }
@@ -85,10 +88,6 @@ export const getSuggestion = (
   // need to suggest words which were already used less frequently
   // where suggestion ends with possibleTranscript.nextPossibleWord
   if (userEnteringText.endsWithOpenBracket) {
-    if (userEnteringText.hasOnlyOneCharacter) {
-      return userEnteringText.content + possibleTranscript.firstWord;
-    }
-
     return userEnteringText.content + possibleTranscript.nextPossibleWord;
   }
 
