@@ -25,7 +25,7 @@ class Text {
   }
 }
 
-class UserEnteringText extends Text {
+export class UserEnteringText extends Text {
   get isEmpty() {
     return this.content === "";
   }
@@ -49,7 +49,7 @@ class UserEnteringText extends Text {
   }
 }
 
-class PossibleTranscript extends Text {
+export class PossibleTranscript extends Text {
   constructor(content: string, private userEnteringText: UserEnteringText) {
     super(content);
   }
@@ -78,7 +78,7 @@ class PossibleTranscript extends Text {
   }
 }
 
-const getSuggestion = (
+export const getSuggestion = (
   userEnteringText: InstanceType<typeof UserEnteringText>,
   possibleTranscript: InstanceType<typeof PossibleTranscript>
 ) => {
