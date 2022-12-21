@@ -1,6 +1,6 @@
 import { getSuggestion, UserEnteringText, PossibleTranscript } from "App"
 import { transcriptPlaceholderForTest } from "tests/utils"
-import { specialCharactersExceptOpenBraces } from "tests/utils"
+import { specialCharactersExceptOpenBraces, openBraces } from "tests/utils"
 
 const text = transcriptPlaceholderForTest
 
@@ -68,4 +68,20 @@ for (let character of specialCharactersExceptOpenBraces) {
         return withInput(" ", possibleTranscript.nextPossibleWord);
     `
   )
+}
+
+for (let character of openBraces) {
+  test(`
+      When typed "У{"
+      Expected not to be "У{Уявіть" (had a bug)
+      Should be "У{"
+    `, () => {
+    const userEnteringText = new UserEnteringText(`У${character}`)
+    const suggestion = getSuggestion(
+      userEnteringText,
+      new PossibleTranscript(text, userEnteringText)
+    )
+    expect(suggestion).not.toBe(`У${character}Уявіть`)
+    expect(suggestion).toBe(`У${character}`)
+  })
 }

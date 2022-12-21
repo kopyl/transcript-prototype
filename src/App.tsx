@@ -79,7 +79,10 @@ export class PossibleTranscript extends Text {
     if (this.userEnteringText.isEmpty) {
       return this.firstWord
     }
-    if (this.userEnteringText.endsWithOpenBracketOrSpace) {
+    if (
+      this.userEnteringText.endsWithOpenBracketOrSpace &&
+      this.userEnteringText.hasOnlyOneCharacter
+    ) {
       return this.firstWord
     }
     return ""
