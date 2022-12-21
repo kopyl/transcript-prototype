@@ -182,3 +182,16 @@ export const textWithoutLastWord = (text: string) => {
 //     this.formSetter(this._userEnteringText + this.suggestion);
 //   }
 // }
+
+// if (userEnteringText.endsWithSpecialCharacter)
+//   return userEnteringText.content + " " + possibleTranscript.nextPossibleWord;
+
+// test(`Suggestion should have space after special characters except open braces`, () => {
+//   for (let character of specialCharactersExceptOpenBraces) {
+//     testGetSuggestion(
+//       `Уявіть ${character}`,
+//       transcriptPlaceholderForTest,
+//       `Уявіть ${character} що`
+//     );
+//   }
+// });

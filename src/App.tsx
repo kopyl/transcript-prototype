@@ -88,21 +88,19 @@ export const getSuggestion = (
   // need to suggest words which were already used less frequently
   // where suggestion ends with possibleTranscript.nextPossibleWord
 
+  const withInput = (...args: string[]) =>
+    [userEnteringText.content, ...args].join("").trim();
+
   if (userEnteringText.endsWithOpenBracketOrSpace)
-    return userEnteringText.content + possibleTranscript.nextPossibleWord;
+    return withInput(possibleTranscript.nextPossibleWord);
 
   if (userEnteringText.endsWithSpecialCharacter)
-    return userEnteringText.content + " " + possibleTranscript.nextPossibleWord;
+    return withInput(" ", possibleTranscript.nextPossibleWord);
 
   if (possibleTranscript.endingOfLastEnteredWord)
-    return (
-      userEnteringText.content + possibleTranscript.endingOfLastEnteredWord
-    );
-  return (
-    userEnteringText.content +
-    " " +
-    possibleTranscript.nextPossibleWord
-  ).trim();
+    return withInput(possibleTranscript.endingOfLastEnteredWord);
+
+  return withInput(" ", possibleTranscript.nextPossibleWord);
 };
 
 const _setSuggestion = (
