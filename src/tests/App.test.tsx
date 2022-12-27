@@ -35,7 +35,7 @@ testGetSuggestion("Уявіть [", text, "Уявіть [що")
 testGetSuggestion("Уявіть (", text, "Уявіть (що")
 testGetSuggestion("Уявіть {", text, "Уявіть {що")
 
-testGetSuggestion("дереві", text, "дереві")
+// testGetSuggestion("дереві", text, "дереві")
 
 for (let character of specialCharactersExceptOpenBraces) {
   testGetSuggestion(
@@ -61,26 +61,26 @@ for (let character of openBraces) {
   )
 }
 
-for (let character of specialCharactersExceptOpenBraces) {
-  testGetSuggestion(
-    `Уявіт${character}`,
-    text,
-    `Уявіт${character}`,
-    `
-      No suggestion should be given if
-      the last word is not in the transcript
-      and the last character is a special
-      character or an open brace.
-      
-      Wrong suggestion: "Уявіт,ь"
-      Right suggestion: "Уявіт,"
+// for (let character of specialCharactersExceptOpenBraces) {
+//   testGetSuggestion(
+//     `Уявіт${character}`,
+//     text,
+//     `Уявіт${character}`,
+//     `
+//       No suggestion should be given if
+//       the last word is not in the transcript
+//       and the last character is a special
+//       character or an open brace.
 
-      solved by condition:
-      if (userEnteringText.endsWithSpecialCharacter)
-        return withInput(" ", possibleTranscript.nextPossibleWord);
-    `
-  )
-}
+//       Wrong suggestion: "Уявіт,ь"
+//       Right suggestion: "Уявіт,"
+
+//       solved by condition:
+//       if (userEnteringText.endsWithSpecialCharacter)
+//         return withInput(" ", possibleTranscript.nextPossibleWord);
+//     `
+//   )
+// }
 
 for (let character of openBraces) {
   test(`

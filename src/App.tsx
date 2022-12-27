@@ -5,7 +5,7 @@ import {
   removeSpecialCharacters,
   ltrim,
 } from "./utils"
-import { transcriptPlaceholderUa1 } from "./text"
+import { transcriptPlaceholder } from "./text"
 
 class Text {
   private contentWithoutSpecialChars: string
@@ -137,7 +137,7 @@ export const getSuggestion = (
   // where suggestion ends with possibleTranscript.nextPossibleWord
 
   const withInput = (...args: string[]) =>
-    [userEnteringText.content, ...args].join("").trim()
+    ltrim([userEnteringText.content, ...args].join(""))
 
   if (userEnteringText.endsWithOpenBracketOrSpace)
     return withInput(possibleTranscript.nextPossibleWord)
@@ -173,7 +173,7 @@ function App() {
   const [userEnteringText, setUserEnteringText] = useState("")
   const [suggestionText, setSuggestionText] = useState("")
 
-  const [transcript, _] = useState(transcriptPlaceholderUa1)
+  const [transcript, _] = useState(transcriptPlaceholder)
   const [scrollTop, setScrollTop] = useState(0)
 
   const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
