@@ -3,6 +3,23 @@ import "./App.css"
 import { removeSpacesFromArray, removeSpecialCharacters } from "./utils"
 import { transcriptPlaceholderUa1 } from "./text"
 
+function ltrim(str) {
+  if (!str) return str
+  return str.replace(/^\s+/g, "")
+}
+
+export const useRefHeightMeasure = <T extends HTMLElement>() => {
+  const [scrollTop, setScrollTop] = useState(0)
+
+  const refCallback = useCallback((node: T) => {
+    if (node !== null) {
+      setScrollTop(node.scrollTop)
+    }
+  }, [])
+
+  return { scrollTop, refCallback }
+}
+
 class Text {
   private contentWithoutSpecialChars: string
 
@@ -133,7 +150,7 @@ function App() {
   const [transcript, _] = useState(transcriptPlaceholderUa1)
 
   const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const enteredText = event.target.value
+    const enteredText = ltrim(event.target.value)
     setUserEnteringText(enteredText)
   }
 
