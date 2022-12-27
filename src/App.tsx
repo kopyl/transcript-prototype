@@ -73,13 +73,49 @@ export class PossibleTranscript extends Text {
     )
   }
 
-  get nextPossibleWord(): string {
+  lessFrequentNewWords() {
     const array = this.array
     const lastEnteredWord = this.userEnteringText.lastWord.toLowerCase()
+    let words = []
     for (let wordCount in array) {
       if (array[wordCount].toLowerCase() === lastEnteredWord)
-        return array[parseInt(wordCount) + 1] ?? ""
+        words.push(array[parseInt(wordCount) + 1] ?? "")
     }
+    words = new Array(...new Set(words))
+    if (words.length === 0) return ""
+
+    const allOccurences = []
+    for (let word of words) {
+      const occurencies = this.userEnteringText.array.reduce(function (
+        a,
+        e,
+        i
+      ) {
+        if (e === word) {
+          a.push(e)
+        }
+        return a
+      },
+      [])
+      allOccurences.push.apply(allOccurences, occurencies)
+    }
+
+    if (words.length === 1) return words[0]
+
+    const occurenciesWithWordsArray = [...allOccurences, ...words]
+    const result = [
+      ...occurenciesWithWordsArray.reduce(
+        (r, n) => r.set(n, (r.get(n) || 0) + 1),
+        new Map()
+      ),
+    ].reduce((r, v) => (v[1] < r[1] ? v : r))[0] // get the the item that appear less times
+    return result
+  }
+
+  get nextPossibleWord(): string {
+    const possibleNextWord = this.lessFrequentNewWords()
+    if (possibleNextWord) return possibleNextWord
+
     if (this.userEnteringText.isEmpty) {
       return this.firstWord
     }
@@ -101,7 +137,7 @@ export const getSuggestion = (
   // where suggestion ends with possibleTranscript.nextPossibleWord
 
   const withInput = (...args: string[]) =>
-    [userEnteringText.content, ...args].join("").trim()
+    ltrim([userEnteringText.content, ...args].join(""))
 
   if (userEnteringText.endsWithOpenBracketOrSpace)
     return withInput(possibleTranscript.nextPossibleWord)
