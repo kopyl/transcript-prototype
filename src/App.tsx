@@ -7,18 +7,6 @@ import {
 } from "./utils"
 import { transcriptPlaceholderUa1 } from "./text"
 
-export const useRefHeightMeasure = <T extends HTMLElement>() => {
-  const [scrollTop, setScrollTop] = useState(0)
-
-  const refCallback = useCallback((node: T) => {
-    if (node !== null) {
-      setScrollTop(node.scrollTop)
-    }
-  }, [])
-
-  return { scrollTop, refCallback }
-}
-
 class Text {
   private contentWithoutSpecialChars: string
 
