@@ -199,20 +199,8 @@ function App() {
           Your browser does not support the audio element.
         </audio>
         <div className="buttons">
-          <button
-            onClick={() => {
-              setTest(" TEST2")
-            }}
-          >
-            Change state
-          </button>
-          <button
-            onClick={() => {
-              console.log(JSON.stringify(suggestionText))
-            }}
-          >
-            Log suggestion text all
-          </button>
+          <button></button>
+          <button></button>
         </div>
       </div>
     </div>
