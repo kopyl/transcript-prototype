@@ -161,11 +161,26 @@ function App() {
           onChange={onChange}
           onKeyDown={onKeyDown}
         />
-        <textarea className="overlay" defaultValue={suggestionText} />
         <audio controls className="audio-player">
           <source src="audio-to-transcript.m4a" type="audio/ogg" />
           Your browser does not support the audio element.
         </audio>
+        <div className="buttons">
+          <button
+            onClick={() => {
+              // setTest(" TEST2")
+            }}
+          >
+            Change state
+          </button>
+          <button
+            onClick={() => {
+              console.log(JSON.stringify(suggestionText))
+            }}
+          >
+            Log suggestion text all
+          </button>
+        </div>
       </div>
     </div>
   )
