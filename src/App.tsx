@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useCallback, useEffect, useRef, useState } from "react"
 import "./App.css"
 import { removeSpacesFromArray, removeSpecialCharacters } from "./utils"
 import { transcriptPlaceholderUa1 } from "./text"
@@ -144,10 +144,14 @@ const setSuggestion = (
 }
 
 function App() {
+  const textareaCoverRef = useRef(null)
+  const textareaRef = useRef(null)
+
   const [userEnteringText, setUserEnteringText] = useState("")
   const [suggestionText, setSuggestionText] = useState("")
 
   const [transcript, _] = useState(transcriptPlaceholderUa1)
+  const [scrollTop, setScrollTop] = useState(0)
 
   const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const enteredText = ltrim(event.target.value)
@@ -160,6 +164,10 @@ function App() {
     autoComplete()
   }
 
+  const onScroll = (event: React.UIEvent<HTMLTextAreaElement>) => {
+    setScrollTop(event.currentTarget.scrollTop)
+  }
+
   const autoComplete = () => {
     const textToBeEntered = suggestionText + " "
     setUserEnteringText(textToBeEntered)
@@ -167,7 +175,8 @@ function App() {
 
   useEffect(() => {
     setSuggestion(setSuggestionText, transcript, userEnteringText)
-  }, [userEnteringText, transcript])
+    textareaCoverRef.current.scrollTop = textareaRef.current.scrollTop
+  }, [userEnteringText, transcript, suggestionText, scrollTop])
 
   return (
     <div className="App">
@@ -177,6 +186,13 @@ function App() {
           className="main"
           onChange={onChange}
           onKeyDown={onKeyDown}
+          onScroll={onScroll}
+          ref={textareaRef}
+        />
+        <textarea
+          ref={textareaCoverRef}
+          className="overlay"
+          defaultValue={suggestionText}
         />
         <audio controls className="audio-player">
           <source src="audio-to-transcript.m4a" type="audio/ogg" />
