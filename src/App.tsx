@@ -82,8 +82,11 @@ export class PossibleTranscript extends Text {
         words.push(array[parseInt(wordCount) + 1] ?? "")
     }
     words = new Array(...new Set(words))
+    if (words.length === 0) return ""
 
     // const allOccurences = new Set()
+    console.log(words, "words")
+
     const allOccurences = []
     for (let word of words) {
       const occurencies = this.userEnteringText.array.reduce(function (
@@ -92,13 +95,11 @@ export class PossibleTranscript extends Text {
         i
       ) {
         if (e === word) {
-          // a.push (i)
           a.push(e)
         }
         return a
       },
       [])
-      // occurencies.forEach((occurency) => allOccurences.add(occurency))
       allOccurences.push.apply(allOccurences, occurencies)
     }
 
@@ -106,7 +107,7 @@ export class PossibleTranscript extends Text {
     // const amountOccurences = allOccurences.length
 
     // console.table({ allOccurences, words, nextWord, amountOccurences })
-    console.table({ allOccurences, words })
+    // console.table({ allOccurences, words })
 
     // for (let word of words) {
     //   if (allOccurences.includes(word)) {
