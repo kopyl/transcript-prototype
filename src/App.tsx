@@ -168,7 +168,7 @@ function App() {
         <div className="buttons">
           <button
             onClick={() => {
-              // setTest(" TEST2")
+              setTest(" TEST2")
             }}
           >
             Change state
