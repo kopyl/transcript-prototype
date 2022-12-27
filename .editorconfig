@@ -3,3 +3,4 @@ max_line_length = 75
 
 [*.ts]
 max_line_length = 75
+tab_width = 4
