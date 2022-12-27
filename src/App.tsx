@@ -5,7 +5,7 @@ import {
   removeSpecialCharacters,
   ltrim,
 } from "./utils"
-import { transcriptPlaceholder } from "./text"
+import { transcriptPlaceholderUa1 } from "./text"
 
 class Text {
   private contentWithoutSpecialChars: string
@@ -173,7 +173,7 @@ function App() {
   const [userEnteringText, setUserEnteringText] = useState("")
   const [suggestionText, setSuggestionText] = useState("")
 
-  const [transcript, _] = useState(transcriptPlaceholder)
+  const [transcript, _] = useState(transcriptPlaceholderUa1)
   const [scrollTop, setScrollTop] = useState(0)
 
   const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
