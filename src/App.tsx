@@ -1,12 +1,11 @@
 import React, { useCallback, useEffect, useRef, useState } from "react"
 import "./App.css"
-import { removeSpacesFromArray, removeSpecialCharacters } from "./utils"
+import {
+  removeSpacesFromArray,
+  removeSpecialCharacters,
+  ltrim,
+} from "./utils"
 import { transcriptPlaceholderUa1 } from "./text"
-
-function ltrim(str) {
-  if (!str) return str
-  return str.replace(/^\s+/g, "")
-}
 
 export const useRefHeightMeasure = <T extends HTMLElement>() => {
   const [scrollTop, setScrollTop] = useState(0)
