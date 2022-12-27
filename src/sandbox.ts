@@ -1,6 +1,6 @@
 export const textWithoutLastWord = (text: string) => {
-  const array = text.split(" ")
-  return array.slice(0, array.length - 1).join(" ")
+    const array = text.split(" ")
+    return array.slice(0, array.length - 1).join(" ")
 }
 
 // export const makeSuggestion = (
@@ -214,3 +214,22 @@ export const textWithoutLastWord = (text: string) => {
 //     }
 //     return ""
 //   }
+
+// const allOccurences = []
+// for (let word of temp3) {
+//     const occurencies = temp1.reduce(function (a, e, i) {
+//         if (e === word) a.push(i)
+//         return a
+//     }, [])
+//     allOccurences.push.apply(allOccurences, occurencies)
+// }
+
+// const allOccurences = new Set()
+// for (let word of temp3) {
+//     const occurencies = temp1.reduce(function (a, e, i) {
+//         if (e === word) a.push(i)
+//         return a
+//     }, [])
+//     occurencies.forEach((occurency) => allOccurences.add(occurency))
+// }
+// console.log(allOccurences.size)

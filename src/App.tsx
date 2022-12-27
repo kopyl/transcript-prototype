@@ -73,13 +73,93 @@ export class PossibleTranscript extends Text {
     )
   }
 
-  get nextPossibleWord(): string {
+  gpw() {
     const array = this.array
     const lastEnteredWord = this.userEnteringText.lastWord.toLowerCase()
+    let words = []
     for (let wordCount in array) {
       if (array[wordCount].toLowerCase() === lastEnteredWord)
-        return array[parseInt(wordCount) + 1] ?? ""
+        words.push(array[parseInt(wordCount) + 1] ?? "")
     }
+    words = new Array(...new Set(words))
+
+    // const allOccurences = new Set()
+    const allOccurences = []
+    for (let word of words) {
+      const occurencies = this.userEnteringText.array.reduce(function (
+        a,
+        e,
+        i
+      ) {
+        if (e === word) {
+          // a.push (i)
+          a.push(e)
+        }
+        return a
+      },
+      [])
+      // occurencies.forEach((occurency) => allOccurences.add(occurency))
+      allOccurences.push.apply(allOccurences, occurencies)
+    }
+
+    // const nextWord = words[allOccurences.length]
+    // const amountOccurences = allOccurences.length
+
+    // console.table({ allOccurences, words, nextWord, amountOccurences })
+    console.table({ allOccurences, words })
+
+    // for (let word of words) {
+    //   if (allOccurences.includes(word)) {
+    //     console.log(word, "word")
+    //     return word
+    //   }
+    // }
+
+    if (words.length === 1) return words[0]
+
+    const occurenciesWithWordsArray = [...allOccurences, ...words]
+    // console.log(occurenciesWithWordsArray, "occurenciesWithWordsArray")
+
+    const result = [
+      ...occurenciesWithWordsArray.reduce(
+        (
+          r,
+          n // create a map of occurrences
+        ) => r.set(n, (r.get(n) || 0) + 1),
+        new Map()
+      ),
+    ].reduce((r, v) => (v[1] < r[1] ? v : r))[0] // get the the item that appear less times
+
+    console.log(result)
+    // console.log()
+    return result
+
+    // console.log(allOccurences.length, allOccurences)
+    // console.log(
+    //   words[allOccurences.size],
+    //   "next word",
+    //   allOccurences.size,
+    //   words,
+    //   this.userEnteringText.array
+    // )
+
+    // if (words.length === 1) return words[0]
+
+    // console.log()
+
+    // return words[0]
+    // const wordsToSkip =
+    //   allOccurences.length - 1 === -1 ? 0 : allOccurences.length - 1
+    // console.log(words[wordsToSkip] ?? words[0] ?? "", "FINAL")
+
+    // return words[wordsToSkip] ?? words[0] ?? ""
+    return words[0]
+  }
+
+  get nextPossibleWord(): string {
+    const possibleNextWord = this.gpw()
+    if (possibleNextWord) return possibleNextWord
+
     if (this.userEnteringText.isEmpty) {
       return this.firstWord
     }
