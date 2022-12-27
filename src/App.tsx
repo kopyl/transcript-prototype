@@ -162,6 +162,10 @@ function App() {
           onKeyDown={onKeyDown}
         />
         <textarea className="overlay" defaultValue={suggestionText} />
+        <audio controls className="audio-player">
+          <source src="audio-to-transcript.m4a" type="audio/ogg" />
+          Your browser does not support the audio element.
+        </audio>
       </div>
     </div>
   )

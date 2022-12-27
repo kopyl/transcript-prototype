@@ -39,3 +39,11 @@
 .read-the-docs {
   color: #888;
 }
+
+.audio-player {
+    position: absolute;
+    bottom: -100px;
+    left: 0;
+    width: 100%;
+
+}
