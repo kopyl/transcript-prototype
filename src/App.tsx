@@ -10,7 +10,7 @@ class Text {
     this.contentWithoutSpecialChars = removeSpecialCharacters(this.content)
   }
 
-  public get array(): string[] | [] {
+  public get array(): string[] {
     const array = this.contentWithoutSpecialChars
       .replace("\n", " ")
       .split(" ")
